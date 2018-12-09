@@ -1,0 +1,84 @@
+/* Global Style*/
+button{
+ border: 2px outset gray;
+ background-color: #FF7647;
+  
+}
+button:hover{
+	border: inset;
+	animation: ease-in-out;
+	animation-duration: .4s;
+	background-color: #B24520;
+	color: white;
+	
+
+}
+
+img:hover{
+	filter: invert(1);
+}
+
+button:active{
+	border: 4px inset;
+	animation: ease-in-out;
+	animation-duration: .05s;
+	color: #47FF79;
+}
+body{
+	background-color: #83FFD6;
+}
+/*Home Page Style*/
+#homeDiv{
+	border-style: outset;
+	border-width: 2px;
+	border-top: #0EB28E;
+	border-left: #0EB28E;
+	border-right: #47FFD7;
+	border-bottom: #47FFD7;
+	/*box-shadow: 3px 3px 6px #000000;*/
+	background-color: #47FFD7;
+	/*border-radius: 2em;*/
+	size: auto;
+}
+#homeButDiv{
+	border: 2px solid black; 
+	display: inline;
+	align-content: center; 
+}
+#plane{
+	width: 200px;
+	height: 80px;
+}
+#graph{
+	width: 50px;
+	height: 50px; 
+}
+
+/*selection page style*/ 
+.chooseDiv{
+	border: 2px outset;
+	border-top: #0EB28E;
+	border-left: #0EB28E;
+	border-right: #47FFD7;
+	border-bottom: #47FFD7;
+	box-shadow: 3px 3px 6px #000000;
+	background-color: #47FFD7;
+	/*border-radius: 1em;*/
+	width: auto;
+}
+.al{
+	border: 2px groove white;
+	box-shadow: 1px 1px 2px black; 
+	font-family: georgia;
+	color: white; 
+	background: #B24520; 
+}
+.dropdown-content{
+	height: 300px;
+	width: 250px;
+	overflow: scroll;
+	background-color: #FF7647;
+	border: 2px outset #B24520;
+	text-align: center;
+	
+}
