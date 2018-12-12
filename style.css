@@ -1,49 +1,97 @@
 /* Global Style*/
+div{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+h1{
+	font-family: "Lucida Sans Unicode", sans-serif;
+	color: white; 
+}
+#logout{
+	margin-top: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 1em; 
+}
 button{
  border: 2px outset gray;
- background-color: #FF7647;
-  
+ background-color: #9AFFF7;  
 }
 button:hover{
 	border: inset;
 	animation: ease-in-out;
 	animation-duration: .4s;
-	background-color: #B24520;
+	background-color: #00CCBD;
 	color: white;
-	
+}
+button:active{
+	border: 4px inset;
+	animation: ease-in-out;
+	animation-duration: .05s;
+	color: #9AFFF7;
+	opacity: 0;
+}
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #9AFFF7; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #00CCBD; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #007F76; 
 }
 
 img:hover{
 	filter: invert(1);
 }
 
-button:active{
-	border: 4px inset;
-	animation: ease-in-out;
-	animation-duration: .05s;
-	color: #47FF79;
-}
+
 body{
-	background-color: #83FFD6;
+	background: url('israel-air.jpg');
+	background-size: cover;
+	text-align: center;
 }
 /*Home Page Style*/
 #homeDiv{
-	border-style: outset;
-	border-width: 2px;
+	color: white;
+	/*border-radius: 2em;*/
+	size: auto;
+	margin-top: 3em;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 1em; 
+}
+#homeButDiv{
+	align-content: center; 
+}
+.homeText{
+	padding: 1em 1em 1em 1em;
+	/*border: 1px groove white;*/
 	border-top: #0EB28E;
 	border-left: #0EB28E;
 	border-right: #47FFD7;
 	border-bottom: #47FFD7;
-	/*box-shadow: 3px 3px 6px #000000;*/
-	background-color: #47FFD7;
-	/*border-radius: 2em;*/
-	size: auto;
+	box-shadow: 3px 3px 6px #000000;
+	background-color: #9AFFF7;
+	max-width: 300px;
+	margin-left: auto;
+	margin-right: auto;
 }
-#homeButDiv{
-	border: 2px solid black; 
-	display: inline;
-	align-content: center; 
+#choose_new_al{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1em;
+	margin-bottom: 1em;
 }
 #plane{
 	width: 200px;
@@ -55,30 +103,80 @@ body{
 }
 
 /*selection page style*/ 
-.chooseDiv{
+.chooseDiv, .descText{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	padding: 2px; 
 	border: 2px outset;
-	border-top: #0EB28E;
-	border-left: #0EB28E;
-	border-right: #47FFD7;
-	border-bottom: #47FFD7;
+	/*border-top: #0EB28E;*/
+	/*border-left: #0EB28E;*/
+	/*border-right: #47FFD7;*/
+	/*border-bottom: #47FFD7;*/
 	box-shadow: 3px 3px 6px #000000;
-	background-color: #47FFD7;
-	/*border-radius: 1em;*/
+	background-color: #00FFEC;
+	max-width: 300px;
+	text-align: center;
+	margin-bottom: 1em;
+	margin-top: 1em;
+	margin-left: auto ;
+    margin-right: auto ;
 	width: auto;
+}
+.dropbtn{
+	margin: 1em 1em 1em;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	padding: 2px; 
+}
+#myInput{
+	background-color:#00CCBD;
+	margin-bottom: .5em;
+		font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+		padding: 2px; 
 }
 .al{
 	border: 2px groove white;
 	box-shadow: 1px 1px 2px black; 
-	font-family: georgia;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	padding: 2px; 
 	color: white; 
-	background: #B24520; 
+	background: #00CCBD;
+	opacity: 1.0;
+	filter: alpha(opacity=100); 
 }
-.dropdown-content{
+.al:hover{
+	border: inset;
+	animation: ease-in-out;
+	color: white;
+}
+.al:active{
+	border: 4px inset;
+	animation: ease-in-out;
+}
+.dropdown-content, #flightsDiv{
+		font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+		padding: 2px; 
 	height: 300px;
 	width: 250px;
 	overflow: scroll;
-	background-color: #FF7647;
-	border: 2px outset #B24520;
+	/*opacity: 0.5;
+    filter: alpha(opacity=50);*/ /* For earlier browser compatibility*/
+	/*border: 2px outset #00CCBD;*/
 	text-align: center;
-	
+	margin-bottom: 1em;
+	margin-top: 1em;
+	margin-left: auto ;
+    margin-right: auto ;
+}
+/*login page styling*/
+#login_user, #login_pass, #date_input, #rev_per_flight, #cost_per_flight{
+	background-color: #9AFFF7;
+	opacity: .8;
+	margin-top: .5em;
+	margin-bottom: .5em;
+}
+/* Flight listing page style*/
+.in_flight{
+	margin-left: 1em;
+	margin-right: auto;
+	margin-top: .3em;
+	margin-bottom: .3em;
 }
