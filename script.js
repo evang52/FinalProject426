@@ -1,5 +1,3 @@
-
-
 var root_url = 'http://comp426.cs.unc.edu:3001';
 var sel_airline = '';
 var sel_id = 0;
@@ -7,8 +5,22 @@ var flight_id = 0;
 var revenue = 0;
 var cost = 0;
 var profit = 0;
+var rpf = 0;
+var cpf = 0;
+var tot_inst = 0;
 
 
+//function build_homepage() {
+//	let body = $('body');
+//	body.empty();
+//	let homeBody = $('<div id = "homeDiv">' + sel_airline + ' Cashflow Projection</div>');
+//	homeBody.append('<button id = "choose_new_al"> Choose a New Airline </button>');
+//	homeBody.append('<br>');
+//	homeBody.append('<button id = "hp_flights">' + sel_airline + ' Flight Information</button>');
+//	homeBody.append('<div class = "a_div"><br><button id = "hp_an">' + sel_airline + ' Analytics / Cash Flow Metrics</button></div>');
+//	body.append(homeBody);
+//	body.append('<button id = "logout"> Logout </button>');
+//}
 function build_homepage() {
 	let body = $('body');
 	body.empty();
@@ -22,6 +34,7 @@ function build_homepage() {
 	body.append(homeBody);
 	body.append('<button id = "logout"> Logout </button>');
 }
+
 
 function build_flight_interface(){
 	let body = $('body');
@@ -39,7 +52,7 @@ function build_flight_interface(){
 		   success: (response) => {
 		   		let count = 0;
 			   	response.forEach(function(object) { 
-			   	var fl_num = object.number;
+			   	var fl_num = object.id;
 			   	var dept_id = object.departure_id;
 			   	var arr_id = object.arrival_id;
 			   	var dep_tim = object.departs_at;
@@ -96,6 +109,7 @@ function build_flight_interface(){
 	body.append(listDiv);
 }
 
+
 function build_analytics_interface()	{
 	// let head = $('head');
 	// head.empty();
@@ -111,15 +125,16 @@ function build_analytics_interface()	{
 	topDiv.append('<input type = "text" id = "rev_per_flight" placeholder = "Revenue Per Flight:">');
 	topDiv.append('<br>');
 	topDiv.append('<input type = "text" id = "cost_per_flight" placeholder = "Cost Per Flight:">');
+	topDiv.append('<br>');
+	topDiv.append('<button id = update_CF>Compute</button>');
 	body.append(topDiv);
 	let bottomDiv = $('<div></div>');
 	bottomDiv.append('<p class = "descText">Total Revenue: ' + revenue + '</p><br>');
 	bottomDiv.append('<p class = "descText">Total Costs: ' + cost+ '</p><br>');
 	bottomDiv.append('<p class = "descText"> Profit: ' + profit + '</p>');
 	body.append(bottomDiv);
-
+	body.append('<button id = "logout"> Logout </button>');
 }
-
 
 function build_instance_interface()	{
 	let body = $('body');
@@ -128,18 +143,21 @@ function build_instance_interface()	{
 	let new_inst_div = $('<div id = "instance_div"></div>');
 	new_inst_div.append('<input type = "text" id = "date_input" placeholder = "Date: (YYYY-MM-DD)">');
 	body.append(new_inst_div);
-	body.append('<button class = "createInstance"> Create New Instance of this Flight </button>');
-	body.append('<p class = "descText">Existing Instances</div>');
+	body.append('<button class = "createInstance" id = > Create New Instance of this Flight </button>');
+	body.append('<p class = "descText">Existing Instances</p>');
 	let listDiv = $('<div id = "inst_list"></div>');
-
+	console.log(flight_id);
 	$.ajax(root_url + '/instances?filter[flight_id]=' + flight_id,
 	       {
 		   type: 'GET',
 		   xhrFields: {withCredentials: true},
 		   dataType: 'json',
 		   success: (response) => {
+		   		console.log('here');
 		   		console.log(response);
-			   response.forEach(function(object) {listDiv.append('<p>' + object.date + '</p>' + '<br>');});
+			   response.forEach(function(object) {
+			   	console.log(object);
+			   	listDiv.append('<p class = "descText">' + object.date + '</p>');});
 		   },
 		   error: () => {
 		   		console.log('error');
@@ -152,14 +170,19 @@ function build_instance_interface()	{
 
 
 function build_sel_page()	{
+	revenue = 0;
+	cost = 0;
+	profit = 0;
+
 	let body = $('body');
 	body.empty();
 	body.append('<button id = "logout"> Logout </button>');
 	body.append('<div class = "chooseDiv"> Please Select an Airline to View / Modify Financial Projections</div>');
-	body.append('<input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">');
 	let dropdown = $('<div class="dropdown"></div>');
 	dropdown.append('<button onclick="dropdown()" class="dropbtn">Airlines</button>');
 	let myDD = $('<div id="myDropdown" class="dropdown-content">');
+	myDD.append('<input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">');
+
 	$.ajax(root_url + '/airlines',
 	       {
 		   type: 'GET',
@@ -296,6 +319,72 @@ $('body').on('click', '.back_to_flights', function()	{
 	build_flight_interface();
 });
 
+$('body').on('click', '#update_CF', function()	{
+	let rpf = parseInt($('#rev_per_flight').val());
+	let cpf = parseInt($('#cost_per_flight').val());
+	tot_inst = 0;
+	revenue = 0;
+	cost = 0;
+	profit = 0;
+	$.ajax(root_url + '/flights?filter[airline_id]=' + sel_id,
+	       {
+		   type: 'GET',
+		   xhrFields: {withCredentials: true},
+		   dataType: 'json',
+		   success: (response) => {
+		   		//console.log('here');
+			 	response.forEach(function(object) {
+			 		flight_id = object.id;
+			 		//console.log(flight_id);
+
+			 		$.ajax(root_url + '/instances?filter[flight_id]=' + flight_id,
+	       			{
+		   			type: 'GET',
+				   	xhrFields: {withCredentials: true},
+				   	dataType: 'json',
+				   	success: (response) => {
+					   	response.forEach(function(object) {
+					   		tot_inst++;
+					   		console.log(tot_inst);
+					   	});
+					   revenue = tot_inst*rpf;
+					   cost = tot_inst*cpf;
+					   profit = revenue - cost;
+					   build_analytics_interface();
+					   
+				   	},
+				   	error: () => {
+				       alert('error');
+				   	}
+	       		   	});
+
+			 		   tot_inst = 0;
+					   revenue = 0;
+					   cost = 0;
+					   profit = 0;
+
+
+			 	});
+
+
+
+
+
+
+		   },
+		   error: () => {
+		       alert('error');
+		   }
+	       });
+
+
+});
+
+
+
+
+
+
 $('body').on('click', '.createInstance', function()	{
 	// Read date from input
 	let in_date = $('#date_input').val();
@@ -312,13 +401,14 @@ $('body').on('click', '.createInstance', function()	{
 			},	
 		   success: (response) => {
 			  console.log('New Instance Posted');
+			  build_instance_interface();
 		   },
 		   error: () => {
 		       alert('error');
 		   }
 	       });
 
-	build_instance_interface();
+	
 });
 
 
